@@ -1,5 +1,4 @@
 #! /usr/bin/env python
-
 from prody import *
 import hamiltonian
 import argparse
