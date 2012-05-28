@@ -6,8 +6,7 @@ import argparse
 
 def main():
     #no log messages:
-    #prody.ProDySetVerbosity('none')
-    changeVerbosity('none')
+    prody.setVerbosity('None')
     # parse command line arguments
     parser = argparse.ArgumentParser(description='Calculate MDENM energies from a pdb \
                                     will calculate energy using modes from pdb\
@@ -30,13 +29,13 @@ def main():
     native = ref_alpha.copy()
     pred = calphas.copy()
 
-    h = hamiltonian.EDENMHamiltonian( native.getCoordinates() )
-    Forw_E_ED = h.evaluate_energy( pred.getCoordinates())
+    h = hamiltonian.EDENMHamiltonian( native.getCoords() )
+    Forw_E_ED = h.evaluate_energy( pred.getCoords())
 
-    h = hamiltonian.EDENMHamiltonian( pred.getCoordinates() )
-    Back_E_ED = h.evaluate_energy( native.getCoordinates())
+    h = hamiltonian.EDENMHamiltonian( pred.getCoords() )
+    Back_E_ED = h.evaluate_energy( native.getCoords())
 
-    number_of_residues = ref.getNumOfResidues()
+    number_of_residues = ref.numResidues()
     rmsdED = calcRMSD(calphas,target=ref_alpha)
 
     print "%s %.2f %.2f %.2f " % (args.pdb,rmsdED,Forw_E_ED/number_of_residues,Back_E_ED/number_of_residues),
