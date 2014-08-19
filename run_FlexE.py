@@ -40,7 +40,7 @@ def main():
     number_of_residues = ref.numResidues()
     rmsdED = calcRMSD(calphas,target=ref_alpha)
 
-    print "%s %.2f %.2f %.2f " % (args.pdb,rmsdED,Forw_E_ED/number_of_residues,Back_E_ED/number_of_residues),
+    print "%s %.2f %.2f %.2f " % (args.pdb, rmsdED, Forw_E_ED / number_of_residues, Back_E_ED / number_of_residues),
 
 
 if __name__ == '__main__':

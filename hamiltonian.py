@@ -32,17 +32,18 @@ class EDENMHamiltonian(object):
     def _setup_matrix(self):
         # first we calculate all of the pairwise distances
         self.dist_matrix = get_dist_matrix(self.native_coords)
-        
+
         # loop over everything
         for i in range(self.n_res):
             for j in range(i+1, self.n_res):
                 if j - i <= 3:
-                    k = 60.0 / (j-i)**2 
+                    k = 60.0 / (j-i)**2
                     self.k_matrix[i,j] = self.k_matrix[j,i] = k
                 elif self.dist_matrix[i,j] > self.cutoff:
                     self.k_matrix[i,j] = self.k_matrix[j,i] = 0.0
                 else:
-                    k = (6.0 / self.dist_matrix[i,j])**6
+                    d = 3.8 if self.dist_matrix[i, j] < 3.8 else self.dist_matrix[i, j]
+                    k = (6.0 / d)**6
                     self.k_matrix[i,j] = self.k_matrix[j,i] = k
 
     def evaluate_energy(self, coords):
@@ -70,7 +71,7 @@ class ANMHamiltonian(object):
     def _setup_matrix(self):
         # first we calculate all of the pairwise distances
         self.dist_matrix = get_dist_matrix(self.native_coords)
-        
+
         # loop over everything
         for i in range(self.n_res):
             for j in range(i+1, self.n_res):
