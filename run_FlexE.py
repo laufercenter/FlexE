@@ -12,10 +12,12 @@ def main():
                                     will calculate energy using modes from pdb\
                                     and then from reference--> crystal should\
                                     be the reference')
-    parser.add_argument('--pdb', help='Molecule we want to examine. It will also be used as topology')
-    parser.add_argument('--reference',
+    parser.add_argument('--pdb', required=True,
+                        help='Molecule we want to examine. It will also be used as topology')
+    parser.add_argument('--reference', required=True,
                         help='Rerence pdb to which we will rmsd everything')
-    args = parser.parse_args() 
+    args = parser.parse_args()
+
 
     #Load the structures
     pdb = parsePDB(args.pdb)
@@ -40,7 +42,7 @@ def main():
 
     print "%s %.2f %.2f %.2f " % (args.pdb,rmsdED,Forw_E_ED/number_of_residues,Back_E_ED/number_of_residues),
 
- 
+
 if __name__ == '__main__':
     main()
 
